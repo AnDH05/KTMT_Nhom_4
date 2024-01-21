@@ -1,17 +1,38 @@
-name 'BTL_EMU Nhom 4 Factorial (n+1)!'
-;Contributor:
-;Doan Hoai An (082205007464)
-;...
-
+name 'BTL_EMU_Nhom_4_Factorial_(n+1)!'
 org 100h
-;=====================
 
-;Features here
+INCLUDE "EMU8086.INC" 
 
-;=====================
+MOV DX, OFFSET MAIN
+MOV AH, 9 
+INT 21H
+CALL SCAN_NUM
+MOV NUM, CX
+ADD NUM, 1
 
-exit:
+MOV BX, 1
+MOV AX, 1 
+JMP LABEL1
+
+LABEL1:
+MUL BX
+INC BX
+CMP BX,NUM
+JA EXIT
+JMP LABEL1 
+
+EXIT:
+LEA SI, MSG
+CALL PRINT_STRING
+CALL PRINT_NUM  
+RET
+  
+NUM DW ?
+MAIN DB "Moi nhap so nguyen duong n: $"
+MSG DB 13,10, "Ket qua (n+1)! la: ", 0
+  
+DEFINE_PRINT_NUM
+DEFINE_SCAN_NUM
+DEFINE_PRINT_NUM_UNS
+DEFINE_PRINT_STRING
 ret
-
-
-end
